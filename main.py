@@ -86,7 +86,7 @@ class ApplicationController:
             pygame.display.flip()
 
     def handle_play(self):
-        self.game_board.draw(self.screen)
+        #self.game_board.draw(self.screen)
         self.game_toolbar.draw(self.screen)
         while self.state == "PLAY":
             for event in pygame.event.get():
