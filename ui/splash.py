@@ -1,11 +1,11 @@
 import pygame
 from config import constants
 from ui import button
-import events
+import civlab_events
 
 
 def start_button_action():
-    my_event = pygame.event.Event(events.START_IT_UP)
+    my_event = pygame.event.Event(civlab_events.START_IT_UP)
     pygame.event.post(my_event)
 
 
@@ -70,4 +70,3 @@ class SplashScreen():
     def draw(self, screen):
         screen.blit(self.splash_surface, (0, 0))
         self.start_button.draw(self.splash_surface)
-        pygame.display.flip()
