@@ -3,6 +3,8 @@ CivLab is an ABM framework inspired by sugarscape-style models and turn-based ci
 
 The goal is for anyone to be able to checkout this repo and get started watching their own artificial societies grow, and to experiment with custom rule sets, environment properties, and data collection.
 
+Assets (and much inspiration!) are taken from ben-ryder's Conqueror of Empires project located here https://github.com/ben-ryder/Conqueror-of-Empires
+
 ## Getting Started
 Checkout this repo and run main.py
 

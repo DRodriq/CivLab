@@ -23,23 +23,8 @@ class Menu:
         self.menu_surface = pygame.Surface((int(constants.SCREEN_WIDTH), constants.SCREEN_HEIGHT))
         self.menu_surface.fill(constants.COLORS['grey'])
 
-        title_font = pygame.font.Font(None, constants.SPLASH_TITLE_FONT_SIZE)
         button_font = pygame.font.Font(None, constants.SPLASH_START_BUTTON_FONT_SIZE)
 
-        """        
-        # Draw the title box
-        title_box_width = constants.SCREEN_WIDTH // 4
-        title_box_height = constants.SCREEN_HEIGHT // 8
-        title_box_x = (constants.SCREEN_WIDTH - title_box_width) // 2
-        title_box_y = (constants.SCREEN_HEIGHT - title_box_height) // 2
-        pygame.draw.rect(self.menu_surface, constants.COLORS['blue'], (title_box_x, title_box_y, title_box_width, title_box_height))
-
-        # Draw the title text
-        title_text = title_font.render("CivLab", True, constants.COLORS['white'])
-        title_text_x = (constants.SCREEN_WIDTH - title_text.get_width()) // 2
-        title_text_y = (constants.SCREEN_HEIGHT - title_text.get_height()) // 2
-        self.menu_surface.blit(title_text, (title_text_x, title_text_y))
-        """
         # Load the background image
         background_image = pygame.image.load(constants.MENU_IMAGE)
         background_image = pygame.transform.scale(background_image, (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
