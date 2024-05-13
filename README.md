@@ -12,5 +12,9 @@ Checkout this repo and run main.py
 - Add requirements.txt
 - Remove / integrate code snippets
 - Create modules and get import statements sorted
-- Generate color palletes, landscape and character assets
-- UI elements like menu, toolbar, configuration pages
+- Generate / save color palettes
+- Create landscape, and character assets
+- UI elements like menu, toolbar, settings and config pages
+- Event logging - want to be able to save and replay sims
+- ABM modeling framework - world and agent representations, action loop
+- Decision making logic - random, rule-based, neuroevolution

@@ -49,15 +49,22 @@ tile_weights = {
     DesertTile: 10
 }
 
-class GameBoard():
+class Game():
     def __init__(self):
-        self.generate_random_board()
+        self.generate_random_game_board()
         self.game_surface = pygame.Surface((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
         self.camera_x, self.camera_y = 0, 0
         self.tile_width, self.tile_height = GrassTile().rect.size
         self.iso_angle = 0
 
-    def generate_random_board(self):
+        self.event_registry = (
+            pygame.MOUSEMOTION,
+            pygame.MOUSEBUTTONDOWN,
+            pygame.KEYDOWN
+        )
+
+
+    def generate_random_game_board(self):
         """Generates a 2D game board with random tiles based on weights."""
         self.board = []
         for _ in range(constants.BOARD_HEIGHT):
@@ -68,8 +75,8 @@ class GameBoard():
             self.board.append(row)
         return
     
-    def check_game_events(self):
 
+    def handle_events(self):
         # Keyboard Panning
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:

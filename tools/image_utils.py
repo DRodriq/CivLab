@@ -40,14 +40,17 @@ def darken_image(input_filename, output_filename, darkening_amount=0.5):
 
 
 def generate_random_palette(p_size):
+    '''
+        Color must be a tuple
+    '''
     palette = []
     for _ in range(p_size):
-        color = [random.randint(0, 255) for _ in range(3)]
+        color = tuple(random.randint(0, 255) for _ in range(3))
         palette.append(color)
     return palette
 
  
-def convert_img_to_palette(img, palette):
+def convert_img_to_palette(img, palette, f_name="palette_img.png"):
     """
     Converts a PNG image to a the colors of the palette
     Uses least distance algorithm between images in the source image
@@ -67,11 +70,10 @@ def convert_img_to_palette(img, palette):
             if distance < min_distance:
                 min_distance = distance
                 closest_color = color
- 
         new_data.append(closest_color)
   
     img.putdata(new_data)
-    return img
+    img.save(f_name)
 
 
 def save_palette(palette, filename="palettes.json"):
@@ -120,4 +122,6 @@ def save_palette_from_image(image_path, filename="palettes.json"):
         json.dump(data, f)
         f.write("\n")
 
-convert_grayscale_partial_img("assets/images/civlab_logo.png", "assets/images/civlab_logo_grayscale_25.png", 25)
+new_palette = generate_random_palette(500)
+img = Image.open("/home/drodriq/Source/Python/CivLab_2/new_logo1173650.png")
+convert_img_to_palette(img, new_palette, "new_logo"+ str(random.randint(0,10000000)) + ".png")

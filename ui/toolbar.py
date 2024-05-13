@@ -1,23 +1,32 @@
 import pygame
 from config import constants
+import civlab_events
 
 class Toolbar:
     def __init__(self):
-        self.rect = pygame.Rect(0, 0, constants.SCREEN_WIDTH, constants.TOOLBAR_HEIGHT)
-        self.button_image = None #constants.TOOL_BAR_ICON
+        self.toolbar_dimensions = (constants.SCREEN_WIDTH, constants.TOOLBAR_HEIGHT)
+        self.toolbar_surface = pygame.Surface(self.toolbar_dimensions)
+        self.toolbar_surface.fill(constants.TOOLBAR_COLOR)
+
+        self.button_image = pygame.image.load(constants.TOOL_BAR_ICON)
+        self.button_image = pygame.transform.scale(self.button_image, (self.toolbar_dimensions[1], self.toolbar_dimensions[1]))
+        self.button_surface = pygame.Surface(self.button_image.get_size())
+        self.button_surface.blit(self.button_image, (0,0))
+        self.button_dims = (self.toolbar_dimensions[0] - self.button_image.get_width(), 
+                                              (self.toolbar_dimensions[1] - self.button_image.get_height()) // 2)
+        self.button_rect = pygame.Rect(self.button_dims, self.button_image.get_size())
+        
+        self.event_registry = (pygame.MOUSEBUTTONDOWN,)
 
     def draw(self, screen):
-        pygame.draw.rect(screen, (255, 215, 0), self.rect)
         if self.button_image:
-            # Double the size of the button image
-            scaled_button_image = pygame.transform.scale2x(self.button_image)  
-            self.rect.blit(scaled_button_image, (self.rect.right - scaled_button_image.get_width(), 
-                                              (self.rect.height - scaled_button_image.get_height()) // 2))
+            self.toolbar_surface.blit(self.button_surface, self.button_dims)
+        screen.blit(self.toolbar_surface, (0,0))
+            
+    def handle_event(self, event):
+        if self.button_image and self.button_rect.collidepoint(event.pos):
+            self.handle_click()
 
-    def handle_click(self, pos):
-        # Check if click is within Menu button area (if image provided)
-        if self.button_image and self.button_image.get_rect(topleft=(self.rect.right - self.button_image.get_width(), 
-                                                                        (self.rect.height - self.button_image.get_height()) // 2)).collidepoint(pos):
-            return True
-        return False
+    def handle_click(self):
+        pygame.event.post(pygame.event.Event(civlab_events.OPEN_MENU))
   

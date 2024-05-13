@@ -61,11 +61,17 @@ class SplashScreen():
             constants.SPLASH_START_BUTTON_ORIGIN[0], 
             constants.SPLASH_START_BUTTON_ORIGIN[1], 
             "START", 
-            button_font, 
-            start_button_action
+            button_font,
+            action=start_button_action
         )
         self.start_button.draw(self.splash_surface)
 
+        self.event_registry = (pygame.MOUSEBUTTONDOWN, pygame.MOUSEMOTION)
+
+
+    def handle_event(self, event):
+        if event.type in self.start_button.event_registry:
+            self.start_button.handle_event(event)
 
     def draw(self, screen):
         screen.blit(self.splash_surface, (0, 0))
