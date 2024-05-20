@@ -130,3 +130,8 @@ class Game():
 
                 tile.draw(self.game_surface, iso_x, iso_y)
         screen.blit(self.game_surface, (0, constants.TOOLBAR_HEIGHT))
+
+
+    def draw_agents(self, screen, locs):
+        for loc in locs:
+            screen.blit(constants.AGENT_ASSET_PATH, (loc.x, loc.y))

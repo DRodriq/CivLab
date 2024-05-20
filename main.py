@@ -23,6 +23,8 @@ import ui.splash as splash
 import ui.game as game
 import ui.toolbar as toolbar
 
+from abm import model
+
 import civlab_events
 
 """
@@ -91,12 +93,14 @@ class ApplicationController:
         startup_screen = splash.SplashScreen()
         startup_screen.draw(self.screen)
         while self.state == "START":
+
             for event in pygame.event.get():
                 if event.type in self.main_event_registry:
                     self.handle_event(event)
                 elif event.type in startup_screen.event_registry:
                     startup_screen.handle_event(event)
                 startup_screen.draw(self.screen)
+            
             pygame.display.flip()
 
 
@@ -115,11 +119,6 @@ class ApplicationController:
     def handle_play(self):
         self.game_toolbar.draw(self.screen)
         while self.state == "PLAY":
-            try:
-                result = data_queue.get()  # Get data from the queue
-                print(f"UI received data: {result}")
-            except queue.Empty:
-                pass
             for event in pygame.event.get():
                 if event.type in self.main_event_registry:
                     self.handle_event(event)
@@ -128,25 +127,25 @@ class ApplicationController:
 
             self.the_game.handle_events()  # for performance reasons, we do not want to call this in the for loop!
             self.the_game.draw(self.screen)
+         #   self.the_game.draw_agents(self.screen, (0,1))
             pygame.display.flip()
 
 
-def intense_task(shared_2d_array):
-    i = 0
+def intense_task():
+    abm_model = model.Model()
     while True:
-        # Simulate a computationally intensive task
-        time.sleep(1)  # Replace with your actual processing
-        i+=1
-
+        abm_model.process()
+        data_queue.put(abm_model.get_locations())
+        
 
 if __name__ == "__main__":
     import numpy as np
     import random
-    shared_2d_array = np.random.randint((100,100))
-    data_queue = multiprocessing.Queue()
+   # shared_2d_array = np.random.randint((100,100))
+   # data_queue = multiprocessing.Queue()
 
-    process = multiprocessing.Process(target=intense_task, args=(shared_2d_array,))
-    process.start()
+   # process = multiprocessing.Process(target=intense_task)
+   # process.start()
 
     controller = ApplicationController()
     controller.run()

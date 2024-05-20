@@ -1,7 +1,7 @@
 
 class Agent():
-    def __init__(self) -> None:
-        self.location = (0, 0)
+    def __init__(self, _loc):
+        self.location = _loc
         self.age = 0
         self.items = []
 
